@@ -1,0 +1,69 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+.donetask {
+  white-space: nowrap;
+
+  text-decoration-color: darkred
+}
+
+
+.tasktext {
+  padding-left: 7px;
+  width: 480px;
+  height: 28px;
+}
+.history {
+  padding-left: 7px;
+  width: 500px;
+  height: 28px;
+}
+.taskdate {
+  padding-left: 7px;
+  width: 28%;
+  height: 28px;
+  text-align: right;
+}
+.overdue {
+  padding-left: 7px;
+  width: 500px;
+  height: 28px;
+}
+#newJobText {
+  width: 50%;
+}
+#page {
+  min-width: 800px;
+  max-width: 1000px;
+  margin: auto;
+  position: relative;
+}
+.clickstart{
+  text-shadow: 2px 2px 4px grey;
+  text-decoration:  underline;
+}
+.task {
+  white-space: nowrap;
+  text-decoration: none;
+  display: table;
+}
+span {
+  display: table-cell;
+  vertical-align: middle;
+}
+.odd {
+  border: 1px solid darkgrey;
+  border-radius: 9px;
+  background-color: lightgrey;
+}
+.even {
+  border: 1px solid darkgrey;
+  border-radius: 9px;
+  background-color: lightgreen;
+}
+

@@ -1,0 +1,96 @@
+//
+   Created by pashed on 27.12.16.
+doctype html
+html
+    head
+        title= title
+        link(rel='stylesheet', href='/stylesheets/style.css')
+        link(rel='stylesheet', href='//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css')
+        script(type='text/javascript' src='javascripts/jquery-3.1.1.js')
+        script(type='text/javascript' src='javascripts/jquery-ui.min.js')
+        script(type='text/javascript' src='javascripts/jquery.ui.datepicker-uk.js')
+        script(type='text/javascript' src='javascripts/taskscript.js')
+
+
+    body
+        div#page
+            h1 Привіт!
+            p.statustext Створіть задачу, відмітьте виконання або перегляньте архів
+            div(id="tabs")
+                ul
+                    li
+                        a(href="#Today") Сьогодні
+                    li
+                        a(href="#Tommorow") Завтра
+                    li
+                        a(href="#Later") Пізніше
+                    li
+                        a(href="#history") Архів виконаних
+                    li
+                        a(href="#overdue") Промахані
+                - var date1=new Date();
+                - var str=0;
+                div(id="overdue")
+                    for job in jobListEarlier
+                        div(class=(str % 2 == 0 )? 'task even' : 'task odd', id=job._id)
+                            span(class = "overdue")= "\"" + job.task + "\" "
+                            span(class = "taskdate")= job.date.toLocaleDateString('uk-UA',{weekday:'long', day:'numeric', month:'long', year:'numeric'})
+                        - str++;
+
+                div(id="history")
+                    for job in jobListDone
+                        div(class=(str % 2 == 0 )? 'task even' : 'task odd', id=job._id)
+                            span(class = "history")= "\"" + job.task + "\" "
+                            span(class = "taskdate")= job.date.toLocaleDateString('uk-UA',{weekday:'long', day:'numeric', month:'long', year:'numeric'})
+                        - str++;
+                div(id="Today")
+                    div.titletasks
+                        if jobListToday
+                            h3= "Твої завдання на "+date1.toLocaleDateString('uk-UA',{weekday:'long', day:'numeric', month:'long', year:'numeric'})
+                        else
+                            h3= "Завдання відсутні"
+                    for job in jobListToday
+                        div(class=(str % 2 == 0 )? 'task even' : 'task odd', id=job._id)
+                            span(class = "tasktext")= "\""+job.task+"\" "
+                            select(class = "menu", name="menu")
+                                option(value = "default" disabled = "disabled" selected="selected") Оберіть Дію
+                                option(value = "delete") Видалити
+                                option(value = "done") Виконано
+                                option(value = "postpone") Перенести дату
+                        - str++;
+                div(id="Tommorow")
+                    - var date2 = new Date(); date2.setDate(date1.getDate()+1);
+                    if jobListToday
+                        h3= "Твої завдання на " + date2.toLocaleDateString('uk-UA', {weekday: 'long', day: 'numeric', month: 'long',year: 'numeric'})
+                    else
+                        h3= "Завдання відсутні"
+                    for job in jobListTomorrow
+                        div(class=(str % 2 == 0 )? 'task even' : 'task odd', id=job._id)
+                            span(class = "tasktext")= "\"" + job.task + "\" "
+                            select(class = "menu", name="menu")
+                                option(value = "default" disabled = "disabled" selected="selected") Оберіть Дію
+                                option(value = "delete") Видалити
+                                option(value = "done") Виконано
+                                option(value = "postpone") Перенести дату
+                        - str++;
+                div(id="Later")
+                    if !jobListToday
+                        h3  Майбутні завдання
+                    else
+                        h3 Завдання відсутні
+                    for job in jobListLater
+                        div(class=(str % 2 == 0 )? 'task even' : 'task odd', id=job._id)
+                             span(class = "tasktext")= "\"" + job.task + "\" "
+                             select(class = "menu", name="menu")
+                                option(disabled = "disabled" selected="selected") Оберіть Дію
+                                option(value = "delete") Видалити
+                                option(value = "done") Виконано
+                                option(value = "postpone") Перенести дату
+                        - str++;
+
+            p.newtask Створіть нове завдання
+            form.newtask
+                input(id="newJobText", name="intext", type="text", placeholder="Нова задача")
+                - var todaydate=date1.getFullYear()+'-'+(date1.getMonth()+1)+'-'+date1.getDate()
+                input(id="newJobDate", name="indate", type="text", placeholder='Виконати до')
+                input(id="writeNewTask", type="submit", value='new job')

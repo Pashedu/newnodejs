@@ -1,0 +1,22 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+
+    script(type='text/javascript' src='javascripts/jquery-3.1.1.js')
+    script(type='text/javascript' src='javascripts/jquery-ui.min.js')
+    script.
+        $(function () {
+            $('.clickstart').on('click', function () {
+                $('html').fadeOut(1500, function () {
+                    window.location.href = '/daytasks';
+                })
+            });
+        });
+  body
+    block header
+    div#page
+      h1= title
+      p Ласкаво просимо до менеджера задач
+      span.clickstart Клікніть щоб почати

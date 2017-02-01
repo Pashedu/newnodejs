@@ -1,0 +1,22 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+
+    script(type='text/javascript' src='javascripts/jquery-3.1.1.js')
+    script(type='text/javascript' src='javascripts/jquery-ui.min.js')
+    script.
+      //  var $j= jQuery.noConflict();
+        $(function () {
+            $("#newJobDate").datepicker({
+                dateFormat: 'yy-mm-dd',
+                defaultDate: new Date()
+            });
+            $("newJobDate").datepicker("setDate", new Date());
+            $("#tabs").tabs();
+        });
+  body
+    block header
+    div#page
+        block content
